@@ -1,24 +1,23 @@
 # Library Manager
 
-A small Python program for a campus library that lends books, magazines and DVDs.
-Members can borrow and return items. Invalid actions are refused with clear messages instead of crashing.
+A small python program for a campus library, it keeps books, magazines and DVDs and lets members borrow and return them. If someone tries something wrong it just shows a message instead of crashing.
 
-Run it with:
+To run it:
 
 ```
 python main.py
 ```
 
-Files: `models.py` (the classes), `main.py` (the demo), `output.txt` (output of the final run).
+`models.py` has all the classes, `main.py` runs the demo and `output.txt` is the output from my final run.
 
 ## 1. Why is LibraryItem abstract, and what happens if DVD forgets to write late_fee()?
 
-`LibraryItem` is abstract because a plain "item" should never exist on its own: every real item is a Book, Magazine or DVD, and each one must define its own late fee. The `@abstractmethod` on `late_fee()` is a rule that every child class has to follow. If `DVD` forgot to write `late_fee()`, Python would raise a `TypeError` as soon as we tried to create a DVD object, so the mistake is caught immediately.
+Because there is no such thing as just an "item" in the library, it's always a book, a magazine or a DVD, so it doesn't make sense to create a plain LibraryItem. The `@abstractmethod` on `late_fee()` is basically a promise that every child class has to write its own late fee. If DVD forgets it then Python wont even let you create a DVD object, it gives a `TypeError` straight away so the mistake gets caught early.
 
 ## 2. What happens when you read item.__available from outside the class, and why do we use is_available() instead?
 
-Reading `item.__available` from outside the class raises an `AttributeError`, because the two leading underscores make the attribute private (Python renames it internally). This protects the item's status so outside code can't set it to a wrong value by accident. We use the `is_available()` method instead, which reads the value safely, while `mark_borrowed()` and `mark_returned()` are the only ways to change it.
+You get an `AttributeError`, the two underscores make it private so Python hides it from anything outside the class. I think of it like the stamp behind the library desk, a member can't just walk in and stamp a book themselves, they have to ask the librarian. So `is_available()` is the proper way to check it and only `mark_borrowed()` and `mark_returned()` can change it, that way nobody can set it to something wrong by mistake.
 
 ## 3. What is the difference between LibraryItem.total_items and self.title?
 
-`LibraryItem.total_items` is a class attribute: there is only one copy, shared by every object, and it counts how many items have been created in total. `self.title` is an instance attribute: each object has its own title, stored only on that object. Changing one book's title does not affect any other item, but creating any new item increases `total_items` for all of them.
+`total_items` belongs to the class so there is only one of it and every object shares it, it's like one counter on the library wall that goes up every time a new item is made. `self.title` belongs to each object on its own, so every book has its own title and changing one doesn't touch the others. In my run the counter shows 3 because I created 3 items, but each of them still has a different title.
