@@ -1,0 +1,11 @@
+Alice borrowed: Book: Python 101 by A. Rao (ID 1)
+Could not borrow: 'Python 101' is already borrowed
+Could not borrow: Bob has reached the limit of 1
+Could not return: Bob has not borrowed 'Python 101'
+Alice returned the book. Late fee: Rs 6
+Book: Python 101 by A. Rao (ID 1) -> late fee for 3 days: Rs 6
+Magazine: Forbes 101 has issue number: 23734 and ID (ID 2) -> late fee for 3 days: Rs 3
+DVD: SpiderMan has duration of 170 minutes with ID: (ID 23) -> late fee for 3 days: Rs 15
+Total items created: 3
+Cannot read __available directly: 'Book' object has no attribute '__available'
+Reading it the proper way, book.is_available(): True
