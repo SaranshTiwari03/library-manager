@@ -59,7 +59,6 @@ class Member:
         
         if not item.is_available():
             raise ValueError(f"'{item.title}' is already borrowed")
-        # TODO: raise ValueError (with a message) if the limit is reached
         if len(self.__borrowed) >= self.max_items:
             raise ValueError(f"{self.name} has reached the limit of {self.max_items}")
         item.mark_borrowed()
